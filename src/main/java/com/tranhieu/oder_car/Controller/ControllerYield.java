@@ -34,6 +34,7 @@ public class ControllerYield {
         return ResponseEntity.ok(serviceYield.detailYield(idYield));
     }
 
+    @PostMapping("/yield")
     public ResponseEntity deleteYield(@RequestBody Integer id) {
         return ResponseEntity.ok(serviceYield.deleteYield(id));
     }
