@@ -32,12 +32,14 @@ public class Car {
 
     @Column(name = "place_return")
     private String placeReturn;
-    @Column(name = "phone_number")
-    private String phoneNumberCar;
 
     @Column(name = "status_car")
     private String statusCar;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
     private Set<Yield> listYield = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users users;
 }

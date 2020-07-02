@@ -29,8 +29,6 @@ public class Yield {
     private Integer cost;
     @Column(name = "place_return_product")
     private String placeReturnProduct;
-    @Column(name = "phone_number")
-    private String phoneNumberYield;
 
     @Column(name = "status_oder")
     private Boolean statusOder;
@@ -42,4 +40,8 @@ public class Yield {
     @ManyToOne
     @JoinColumn(name = "car_id",nullable = false)
     private Car car;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
+    private Users users;
 }
