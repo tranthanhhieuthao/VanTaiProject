@@ -1,37 +1,69 @@
 package com.tranhieu.oder_car.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.security.auth.UserPrincipal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    Users users;
+    private Collection<? extends GrantedAuthority> authorities;
 
+    private Integer id;
+
+    private String username;
+
+    @JsonIgnore
+    private String email;
+
+    @JsonIgnore
+    private String password;
+
+    public CustomUserDetails(Integer id,  String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
+    public static CustomUserDetails create(Users user) {
+        List<GrantedAuthority> authorities = user.getListRoles().stream().map(role ->
+                new SimpleGrantedAuthority(role.getName())
+        ).collect(Collectors.toList());
+
+        return new CustomUserDetails(
+                user.getIdUser(),
+                user.getNameUser(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities
+        );
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = users.getListRoles().stream()
-                .map( roles -> new SimpleGrantedAuthority(roles.getName()))
-                .collect(Collectors.toList());
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return users.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return users.getNameUser();
+        return username;
     }
 
     @Override
@@ -53,4 +85,18 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        CustomUserDetails that = (CustomUserDetails) o;
+//        return Objects.equals(id, that.id);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//
+//        return Objects.hash(id);
+//    }
 }

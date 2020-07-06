@@ -3,6 +3,7 @@ package com.tranhieu.oder_car.Configuration;
 import com.tranhieu.oder_car.Service.ServiceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.BeanIds;
@@ -41,11 +42,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationManagerBuilder.userDetailsService(serviceUser).passwordEncoder(passwordEncoder());
     }
 
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors()
                 .and()
+                .csrf()
+                .disable()
                 .authorizeRequests()
-                .antMatchers("/api/login").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/login").permitAll()
                 .anyRequest().authenticated();
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

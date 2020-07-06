@@ -15,21 +15,21 @@ public class OderCarApplication {
     }
 
 
-    @Autowired
-    RepositoryUser userRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
-    public void run(String... args) throws Exception {
-        // Khi chương trình chạy
-        // Insert vào csdl một user.
-        Users user = new Users();
-        user.setNameUser("TranHieu");
-        user.setPassword(passwordEncoder.encode("123456"));
-        user.setEmail("tranhieu@gmail.com");
-        user.setPhoneNumber("0123456");
-        userRepository.save(user);
-        System.out.println(user);
-    }
+//    @Autowired
+//    RepositoryUser userRepository;
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
+//
+//    public void run(String... args) throws Exception {
+//        // Khi chương trình chạy
+//        // Insert vào csdl một user.
+//        Users user = new Users();
+//        user.setNameUser("TranHieu");
+//        user.setPassword(passwordEncoder.encode("123456"));
+//        user.setEmail("tranhieu@gmail.com");
+//        user.setPhoneNumber("0123456");
+//        userRepository.save(user);
+//        System.out.println(user);
+//    }
 
 }

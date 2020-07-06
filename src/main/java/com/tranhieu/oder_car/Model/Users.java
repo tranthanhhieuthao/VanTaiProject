@@ -1,11 +1,14 @@
 package com.tranhieu.oder_car.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,7 +35,7 @@ public class Users {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",joinColumns = { @JoinColumn(name = "user_id")},
     inverseJoinColumns = { @JoinColumn(name = "role_id")})
-    private Set<Roles> listRoles =  new HashSet<>();
+    private List<Roles> listRoles =  new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
     private Set<Car> listCar = new HashSet<>();

@@ -5,18 +5,19 @@ import com.tranhieu.oder_car.Model.CustomUserDetails;
 import com.tranhieu.oder_car.Response.RequestLogin;
 import com.tranhieu.oder_car.Response.ResponseLogin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/v1")
+@Controller
+@RequestMapping("/api")
 public class ControllerLogin {
 
     @Autowired
@@ -26,7 +27,7 @@ public class ControllerLogin {
     private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
-    public ResponseLogin authenticateUser(@Validated @RequestBody RequestLogin requestLogin) {
+    public ResponseEntity authenticateUser(@RequestBody RequestLogin requestLogin) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         requestLogin.getUserName(),
@@ -35,6 +36,6 @@ public class ControllerLogin {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenProvider.genarateToken((CustomUserDetails) authentication.getPrincipal());
-        return new ResponseLogin(jwt);
+        return ResponseEntity.ok(jwt);
     }
 }

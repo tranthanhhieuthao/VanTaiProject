@@ -22,7 +22,7 @@ public class ServiceUser implements UserDetailsService {
         if (users == null) {
             throw new UsernameNotFoundException(name);
         }
-        return new CustomUserDetails(users);
+        return CustomUserDetails.create(users);
     }
 
     public UserDetails loadUserByIdUser(Long id) {
@@ -30,6 +30,6 @@ public class ServiceUser implements UserDetailsService {
         if (users == null) {
             throw new UsernameNotFoundException("NotFound");
         }
-        return new CustomUserDetails(users);
+        return CustomUserDetails.create(users);
     }
 }
