@@ -4,20 +4,28 @@ import com.tranhieu.oder_car.DTO.DTODetailOrder;
 import com.tranhieu.oder_car.Model.Car;
 import com.tranhieu.oder_car.Model.Yield;
 import com.tranhieu.oder_car.Repository.RepositoryCar;
+import com.tranhieu.oder_car.Repository.RepositoryYield;
 import com.tranhieu.oder_car.Response.ResponseOderCar;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
 @Service
+@Slf4j
 public class ServiceCar {
 
     @Autowired
     private RepositoryCar repositoryCar;
+
+    @Autowired
+    private RepositoryYield repositoryYield;
 
     private Boolean checkNullPageAndlimit(Integer page, Integer limit) {
         if (page == null || limit == null) return true;
@@ -66,4 +74,20 @@ public class ServiceCar {
         return ResponseOderCar.isSuccess("SUCCESS", dtoDetailOrder);
     }
 
+//    @Scheduled(fixedDelay = 5000,initialDelay = 10000)
+    @Scheduled(cron = "0 0/30 22-23 * * *")
+    public void DeleteCarAdreadlyDone() {
+        log.info("Bắt đầu lên lịch quét");
+        List<Yield> yields = repositoryYield.findAll();
+        for(Yield yield : yields) {
+            if (yield.getCar().getStatusCar().equalsIgnoreCase("DONE")) {
+                Car car = yield.getCar();
+                car.setStatusCar("NONE");
+                repositoryCar.save(car);
+                repositoryYield.delete(yield);
+                log.info("Đã xóa kiện hàng ,Chuyển đổi thành xe trống" + new Date());
+            }
+        }
+        log.info("lịch quét kết thúc!!!");
+    }
 }
