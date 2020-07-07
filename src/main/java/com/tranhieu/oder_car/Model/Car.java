@@ -1,5 +1,6 @@
 package com.tranhieu.oder_car.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class Car {
     private String statusCar;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+    @JsonIgnore
     private Set<Yield> listYield = new HashSet<>();
 
     @ManyToOne

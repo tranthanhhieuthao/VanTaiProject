@@ -1,6 +1,8 @@
 package com.tranhieu.oder_car.Service;
 
+import com.tranhieu.oder_car.DTO.DTODetailOrder;
 import com.tranhieu.oder_car.Model.Car;
+import com.tranhieu.oder_car.Model.Yield;
 import com.tranhieu.oder_car.Repository.RepositoryCar;
 import com.tranhieu.oder_car.Response.ResponseOderCar;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,12 @@ public class ServiceCar {
         if (car == null) return ResponseOderCar.failed("Không tồn tại");
         repositoryCar.delete(car);
         return ResponseOderCar.isSuccess("SUCCESS",car);
-
     }
+
+    public ResponseOderCar getDetailOrder() {
+        List<DTODetailOrder> dtoDetailOrder = repositoryCar.listDetailOrder();
+        if (dtoDetailOrder.isEmpty()) return ResponseOderCar.failed("Không tồn tại");
+        return ResponseOderCar.isSuccess("SUCCESS", dtoDetailOrder);
+    }
+
 }

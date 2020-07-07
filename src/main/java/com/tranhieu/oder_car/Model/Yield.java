@@ -1,5 +1,6 @@
 package com.tranhieu.oder_car.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,4 @@ public class Yield {
     @JoinColumn(name = "car_id",nullable = false)
     private Car car;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
-    private Users users;
 }

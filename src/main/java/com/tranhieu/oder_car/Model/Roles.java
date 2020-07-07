@@ -1,5 +1,6 @@
 package com.tranhieu.oder_car.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,6 @@ public class Roles {
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",joinColumns = {@JoinColumn(name = "role_id")},
     inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    @JsonIgnore
     private List<Users> listUsers = new ArrayList<>();
 }

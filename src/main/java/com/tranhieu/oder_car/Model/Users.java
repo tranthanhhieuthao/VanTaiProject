@@ -38,9 +38,7 @@ public class Users {
     private List<Roles> listRoles =  new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    @JsonIgnore
     private Set<Car> listCar = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    private Set<Yield> listYield = new HashSet<>();
 
 }
