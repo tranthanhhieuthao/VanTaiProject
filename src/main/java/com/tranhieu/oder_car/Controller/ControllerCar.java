@@ -21,7 +21,7 @@ public class ControllerCar {
     }
 
     @GetMapping("/car/search")
-    public ResponseEntity searchCar(@RequestParam String licensePlate, @RequestParam String placeReturn,@RequestParam Boolean statusCar , @RequestParam Integer page, @RequestParam Integer limit) {
+    public ResponseEntity searchCar(@RequestParam String licensePlate, @RequestParam String placeReturn,@RequestParam String statusCar , @RequestParam Integer page, @RequestParam Integer limit) {
         return ResponseEntity.ok(serviceCar.searchCar(licensePlate,placeReturn,statusCar,page,limit));
     }
 

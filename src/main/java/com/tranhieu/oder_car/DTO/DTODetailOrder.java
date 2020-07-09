@@ -23,7 +23,7 @@ public class DTODetailOrder {
     private Date TimeTakeProduct;
     private Integer cost;
     private String placeReturnProduct;
-    private Boolean statusOder;
+    private String statusOder;
 
 //    public DTODetailOrder(String nameUser, String email,String phoneNumber,String licensePlate,
 //                          int grossTon,

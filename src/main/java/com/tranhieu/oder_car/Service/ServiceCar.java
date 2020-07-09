@@ -44,7 +44,7 @@ public class ServiceCar {
         }
     }
 
-    public ResponseOderCar searchCar(String licensePlate, String placeReturn,Boolean statusCar, Integer page, Integer limit) {
+    public ResponseOderCar searchCar(String licensePlate, String placeReturn,String statusCar, Integer page, Integer limit) {
             Page<Car> listCar = repositoryCar.searchCarByMutilCondition(licensePlate, placeReturn,statusCar, PageRequest.of(--page,limit));
         if (listCar.isEmpty()) return ResponseOderCar.failed("không tồn tại");
         return ResponseOderCar.isSuccess("SUCCESS", listCar);
@@ -84,7 +84,9 @@ public class ServiceCar {
                 Car car = yield.getCar();
                 car.setStatusCar("NONE");
                 repositoryCar.save(car);
-                repositoryYield.delete(yield);
+                yield.setStatusOder("DONE");
+                repositoryYield.save(yield);
+//                repositoryYield.delete(yield);
                 log.info("Đã xóa kiện hàng ,Chuyển đổi thành xe trống" + new Date());
             }
         }

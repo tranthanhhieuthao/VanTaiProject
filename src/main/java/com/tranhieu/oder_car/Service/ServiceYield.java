@@ -35,7 +35,7 @@ public class ServiceYield {
         }
     }
 
-    public ResponseOderCar searchYeild(String nameProduct, String placeReturnProduct,Boolean statusYield, Integer page, Integer limit) {
+    public ResponseOderCar searchYeild(String nameProduct, String placeReturnProduct,String statusYield, Integer page, Integer limit) {
         Page<Yield> listYield = repositoryYield.searchYeild(nameProduct, placeReturnProduct,statusYield, PageRequest.of(page,limit));
         if (listYield.isEmpty()) return ResponseOderCar.failed("Không tồn tại");
         return ResponseOderCar.isSuccess("SUCCESS", listYield);

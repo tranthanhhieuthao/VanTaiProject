@@ -20,7 +20,7 @@ public class ControllerYield {
     }
 
     @GetMapping("/yield/search")
-    public ResponseEntity searchYield(@RequestParam String nameProduct,@RequestParam String placeReturnProduct,@RequestParam Boolean statusOder, Integer page, Integer limit) {
+    public ResponseEntity searchYield(@RequestParam String nameProduct,@RequestParam String placeReturnProduct,@RequestParam String statusOder, Integer page, Integer limit) {
         return ResponseEntity.ok(serviceYield.searchYeild(nameProduct, placeReturnProduct,statusOder, page, limit));
     }
 

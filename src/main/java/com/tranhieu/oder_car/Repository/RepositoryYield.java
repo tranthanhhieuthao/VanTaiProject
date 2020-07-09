@@ -13,7 +13,7 @@ public interface RepositoryYield extends JpaRepository<Yield, Integer> {
 
     @Query(value = "SELECT * FROM yeild ye WHERE (:nameProduct IS NULL OR ye.name_product LIKE %:nameProduct%)" +
             " AND (:weight IS NULL OR ye.placeReturnProduct LIKE %:placeReturnProduct%)" +
-            " AND (:statusYield IS NULL OR ye.status_oder = :statusOder)", nativeQuery = true)
-    Page<Yield> searchYeild(@Param("nameProduct") String nameProduct, @Param("placeReturnProduct") String placeReturnProduct, @Param("statusYield") Boolean statusOder, Pageable pageable);
+            " AND (:statusYield IS NULL OR ye.status_oder LIKE %:statusOder%)", nativeQuery = true)
+    Page<Yield> searchYeild(@Param("nameProduct") String nameProduct, @Param("placeReturnProduct") String placeReturnProduct, @Param("statusYield") String statusOder, Pageable pageable);
 
 }

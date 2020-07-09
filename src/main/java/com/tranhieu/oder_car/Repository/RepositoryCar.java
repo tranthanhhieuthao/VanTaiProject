@@ -20,8 +20,8 @@ public interface RepositoryCar extends JpaRepository<Car, Integer> {
 
     @Query(value = "SELECT * FROM car c WHERE (:licensePlate IS NULL OR c.license_plate like %:licensePlate%)" +
             " AND (:placeReturn IS NULL OR c.place_return LIKE %:placeReturn%)" +
-            " AND (:statusCar IS NULL OR c.status_car = :statusCar)", nativeQuery = true)
-     Page<Car> searchCarByMutilCondition(@Param("licensePlate") String licensePlate,@Param("placeReturn") String placeReturn,@Param("statusCar") Boolean statusCar, Pageable pageable);
+            " AND (:statusCar IS NULL OR c.status_car LIKE %:statusCar%)", nativeQuery = true)
+     Page<Car> searchCarByMutilCondition(@Param("licensePlate") String licensePlate,@Param("placeReturn") String placeReturn,@Param("statusCar") String statusCar, Pageable pageable);
 
     @Query(value = "SELECT new com.tranhieu.oder_car.DTO.DTODetailOrder(" +
             "us.nameUser, us.email, us.phoneNumber," +

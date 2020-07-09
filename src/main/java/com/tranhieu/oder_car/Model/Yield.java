@@ -32,7 +32,7 @@ public class Yield {
     private String placeReturnProduct;
 
     @Column(name = "status_oder")
-    private Boolean statusOder;
+    private String statusOder;
 
     @UpdateTimestamp
     @Column(name = "update_time_oder")
